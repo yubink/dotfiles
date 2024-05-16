@@ -1,0 +1,238 @@
+set nocp
+
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" File browser
+Plugin 'scrooloose/nerdtree' 
+
+" File/buffer finder
+Plugin 'ctrlpvim/ctrlp.vim' 
+
+" Formatter
+Plugin 'sbdchd/neoformat'
+
+" plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+
+" Autocompletes
+"Plugin 'artur-shaik/vim-javacomplete2'
+"Plugin 'davidhalter/jedi-vim'
+
+" Cscope mappings
+Plugin 'simplyzhao/cscope_maps.vim'
+
+" Plugin 'L9'
+" Plugin 'git://git.wincent.com/command-t.git'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+set linebreak
+
+" Whitespace settings; tabs/indentation
+set bs=2
+set tw=78
+set sts=2
+set sw=2
+set ts=2
+set et
+set autoindent
+
+" Highlighting, line numbers, etc
+syn on
+set hls
+set nu
+filetype on
+filetype plugin on
+filetype indent on    " Enable filetype-specific indenting
+set ruler
+set ls=2
+nmap <C-c> :noh<CR>
+
+set splitright
+set guifont=Monospace\ 9
+set foldmethod=syntax
+
+if has("autocmd")
+  autocmd FileType ruby set omnifunc=rubycomplete#Complete
+  autocmd FileType ruby let g:rubycomplete_buffer_loading=1
+  autocmd FileType ruby let g:rubycomplete_classes_in_global=1
+endif
+
+" Window Resizing
+" nmap <C-F9> <C-W><
+" nmap <C-F10> <C-W>>
+" nmap <C-F11> <C-W>-
+" nmap <C-F12> <C-W>+
+" 
+" nmap <C-S-F9> 10<C-W><
+" nmap <C-S-F10> 10<C-W>>
+" nmap <C-S-F11> 10<C-W>-
+" nmap <C-S-F12> 10<C-W>+
+
+" Alternate window resizing (may not work with gnome-terminal) 
+" Does not work in Mac!
+"nmap <C-Left> <C-W><
+"nmap <C-Right> <C-W>>
+"nmap <C-Down> <C-W>-
+"nmap <C-Up> <C-W>+
+
+"nmap <C-S-Left> 10<C-W><
+"nmap <C-S-Right> 10<C-W>>
+"nmap <C-S-Down> 10<C-W>-
+"nmap <C-S-Up> 10<C-W>+
+
+nmap <C-S-Left> <C-W><
+nmap <C-S-Right> <C-W>>
+nmap <C-S-Down> <C-W>-
+nmap <C-S-Up> <C-W>+
+
+" Window Navigation
+nmap <C-H> <C-W>h
+nmap <C-J> <C-W>j
+nmap <C-K> <C-W>k
+nmap <C-L> <C-W>l
+
+" Java/C++ style commenting for single/block commenting
+"nmap <c-?> :s/^\/\///<CR>j
+"vmap <c-?> :s/^\/\///<CR>
+"nmap <c-/> 0i//<esc>j
+"vmap <c-/> :s/^/\/\//<cr>
+
+" #-style commenting for ruby/python
+" nmap <c-#> :s/^#//<cr>j
+" vmap <c-#> :s/^#//<cr>
+" nmap <C-3> 0i#<esc>j
+" vmap <c-3> :s/^/#/<CR>
+
+" Compilation for various languages
+nmap <f2> :!javac %<CR>
+nmap <f3> :!pdflatex %<CR>
+nmap <f4> :!ruby %<CR>
+
+" open go to file in vertical split
+nmap gf gf:vs<cr><C-o>
+
+" use screen lines
+noremap gk k
+noremap gj j
+noremap j gj
+noremap k gk
+
+" pasting using x clipboard
+set pastetoggle=<F2>
+
+" refresh files
+nmap <f5> :checktime<CR>
+
+" handle tmux-ness
+if match($TERM, "screen")!=-1
+  set term=xterm
+  let g:GNU_Screen_used = 1
+else
+  let g:GNU_Screen_used = 0
+endif
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" remember visual mode select =
+
+" Loading plugins
+"execute pathogen#infect()
+
+" remember that you have vinegar!
+" netrw directory browsing settings
+let g:netrw_liststyle=1
+autocmd FileType netrw setl bufhidden=wipe
+
+" neoformat settings
+" let g:neoformat_python_autopep8 = {
+"             \ 'exe': 'autopep8',
+"             \ 'stdin': 0,
+"             \ 'valid_exit_codes': [0, 23],
+"             \ 'no_append': 1,
+"             \ }
+
+let g:neoformat_enabled_python = ['yapf']
+
+let g:neoformat_java_uncrustify = {
+            \ 'exe': 'uncrustify',
+            \ 'args': ['-c ~/.uncrustify/sun.cfg'],
+            \ 'stdin': 1,
+            \ 'env': ["DEBUG=1"],
+            \ 'valid_exit_codes': [0, 23],
+            \ 'no_append': 1,
+            \ }
+let g:neoformat_enabled_java = ['uncrustify']
+
+" ctrlp settings
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_root_markers = ['README.md']
+
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+imap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+imap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+" settings for CTAGS and Cscope
+set tags=./tags;$HOME,tags;
+
+" Autoload cscope.out in ancestor tree
+" function! LoadCscope()
+"   let db = findfile("cscope.out", ".;")
+"   if (!empty(db))
+"     let path = strpart(db, 0, match(db, "/cscope.out$"))
+"     set nocscopeverbose " suppress 'duplicate connection' error
+"     exe "cs add " . db . " " . path
+"     set cscopeverbose
+"   " else add the database pointed to by environment variable
+"   elseif $CSCOPE_DB != ""
+"     cs add $CSCOPE_DB
+"   endif
+" endfunction
+" au BufEnter /* call LoadCscope()
+
+" Mac cliboard support
+" yank to clipboard
+if has("clipboard")
+  set clipboard=unnamed " copy to the system clipboard
+
+  if has("unnamedplus") " X11 support
+    set clipboard+=unnamedplus
+  endif
+endif
