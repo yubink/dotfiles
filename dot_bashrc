@@ -143,3 +143,5 @@ if [ -n "$TMUX" ] && [ -n "$VIRTUAL_ENV" ]; then
   source $VIRTUAL_ENV/bin/activate
 fi
 
+export XAUTHORITY=$HOME/.Xauthority
+export EDITOR=nvim
