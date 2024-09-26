@@ -4,6 +4,12 @@
 ---@type ChadrcConfig
 local M = {}
 
+M.mason.pkgs = {
+  "lua-language-server", "stylua",
+  "html-lsp", "css-lsp" , "prettier",
+  "jedi-language-server", "typescript-language-server",
+}
+
 M.ui = {
 	theme = "ayu_light",
 

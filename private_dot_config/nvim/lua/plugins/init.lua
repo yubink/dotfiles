@@ -17,17 +17,6 @@ return {
   },
 
   {
-  	"williamboman/mason.nvim",
-  	opts = {
-  		ensure_installed = {
-  			"lua-language-server", "stylua",
-  			"html-lsp", "css-lsp" , "prettier",
-        "jedi-language-server"
-  		},
-  	},
-  },
-
-  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
@@ -35,6 +24,10 @@ return {
         "html", "css", "javascript",
         "python", "bash", "ruby",
         "markdown_inline", "markdown"
+      },
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = {"python"},
       },
     },
   },
