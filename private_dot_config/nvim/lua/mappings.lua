@@ -18,7 +18,7 @@ map('n', '<leader>gd', gitsigns.diffthis, { desc = "git diff"})
 map('n', '<leader>gD', function() gitsigns.diffthis('~') end, { desc = "git diff --staged"} )
 
 vim.opt.foldmethod = "expr"
-vim.opt.foldlevelstart = 2
+--vim.opt.foldlevelstart = 2
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 
