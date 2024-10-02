@@ -23,3 +23,10 @@ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 -- vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+vim.keymap.set("v", "<leader>fm", function()
+  require("conform").format({ async = true }, function(err)
+    if not err then
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", true)
+    end
+  end)
+end, { desc = "Format code" })
